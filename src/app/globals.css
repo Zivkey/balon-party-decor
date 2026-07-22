@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
+/* Alan Sans (self-hosted, varijabilni 400–800) — za naslove.
+   Dva subseta: latin + latin-ext (srpski č/ž/š/đ/ć su u latin-ext). */
+@font-face {
+  font-family: "Alan Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/AlanSans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Alan Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/AlanSans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  --font-display: "Alan Sans";
+  --font-sans: var(--font-inter);
+
+  /* Brend boje — Balon Party Decor (Figma #801026) */
+  --color-wine: #801026;
+  --color-wine-dark: #5c0b1b;
+  --color-pink-hero: #f2c4cf;
+  --color-pink-soft: #f9dbe3;
+  --color-pink-mid: #f3c7d3;
+  --color-ink: #2c2224;
+  --color-muted: #8a6b72;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #801026;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  letter-spacing: -0.36px;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+/* Hero "appear" elementi kreću skriveni (bez blica pri učitavanju) — GSAP ih
+   uvede. Ako JS/animacija ne krene, prikaži ih (reduced-motion / no-JS). */
+[data-hero] {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-hero] {
+    opacity: 1;
+  }
+}
+
+/* Talasasta (scallop) ivica — samo OBLIK (mask). Senka ide na wrapper element,
+   jer se `filter` primenjuje PRE `mask`-a pa bi maska isekla i senku. */
+.scallop-shape {
+  height: 22px;
+  background-color: var(--color-pink-mid);
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-size: 48px 44px;
+  mask-size: 48px 44px;
+}
+/* Krugovi izbijaju nagore (iznad sekcije) */
+.scallop-shape-top {
+  -webkit-mask-image: radial-gradient(circle at 24px 22px, #000 22px, transparent 23px);
+  mask-image: radial-gradient(circle at 24px 22px, #000 22px, transparent 23px);
+}
+/* Krugovi izbijaju nadole (ispod sekcije) */
+.scallop-shape-bottom {
+  -webkit-mask-image: radial-gradient(circle at 24px 0px, #000 22px, transparent 23px);
+  mask-image: radial-gradient(circle at 24px 0px, #000 22px, transparent 23px);
 }
