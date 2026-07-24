@@ -6,7 +6,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import HeroSticker from "./HeroSticker";
-import PhotoBalloon from "./PhotoBalloon";
+import SkyBalloon from "./SkyBalloon";
 import Parallax from "./Parallax";
 
 gsap.registerPlugin(useGSAP);
@@ -74,7 +74,7 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative mx-auto aspect-[10/12] w-full max-w-[1440px] sm:aspect-[4/3] lg:aspect-[1440/1000]">
+      <div className="relative mx-auto aspect-[10/11] w-full max-w-[1440px] sm:aspect-[7/5] lg:aspect-[1440/860]">
         {/* DEVOJKA — iza papira (z-10), izranja iznad pocepane ivice */}
         <span
           data-hero
@@ -142,82 +142,74 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Sivi balon — gore levo */}
+        {/* Lebdeći baloni iz "neba" — iza devojke i proizvoda, vide se samo u praznom roze prostoru */}
+        <span data-hero className="pointer-events-none absolute inset-0 z-[6] block">
+          {/* Levi ugao (oslobođen) */}
+          <SkyBalloon color="zlatna" width={112} rotate={-12} speed={70} className="left-[1%] top-[13%]" />
+          <SkyBalloon color="crvena" width={78} rotate={9} speed={116} className="left-[15%] top-[9%]" />
+          {/* Desni ugao (oslobođen) */}
+          <SkyBalloon color="plava" width={118} rotate={12} speed={74} className="left-[86%] top-[9%]" />
+          <SkyBalloon color="srebrna" width={80} rotate={-8} speed={132} className="left-[74%] top-[12%]" />
+          <SkyBalloon color="tirkiz" width={68} rotate={-6} speed={120} className="left-[91%] top-[33%]" />
+        </span>
+
+        {/* Crveni buket sa srcima i Ferrero — gore desno */}
         <span
           data-hero
           className="pointer-events-none absolute z-30 block"
-          style={{ left: "12%", top: "4%", width: "10%" }}
+          style={{ left: "79%", top: "43%", width: "17%" }}
         >
-          <Parallax speed={-90} anchor="top">
-            <span className="block" style={{ transform: "rotate(-8deg)" }}>
-              <PhotoBalloon color="srebrna" />
+          <Parallax speed={55} anchor="top">
+            <span className="block" style={{ transform: "rotate(5deg)" }}>
+              <HeroSticker
+                src="/hero/products/grad-red.png"
+                alt="Crveni buket sa balonima u obliku srca, medom i Ferrero čokoladama"
+                width={1017}
+                height={1158}
+                dieCut
+                priority
+                sizes="420px"
+              />
             </span>
           </Parallax>
         </span>
 
-        {/* Ferrero srce buket — gore desno */}
+        {/* Roze korpa sa medom — desno, na papiru */}
         <span
           data-hero
           className="pointer-events-none absolute z-30 block"
-          style={{ left: "79%", top: "6%", width: "18%" }}
+          style={{ left: "60%", top: "59%", width: "14%" }}
         >
-          <Parallax speed={55} anchor="top">
-            <span className="block" style={{ transform: "rotate(6deg)" }}>
+          <Parallax speed={-110} anchor="top">
+            <span className="block" style={{ transform: "rotate(8deg)" }}>
               <HeroSticker
-                src="/hero/ferrero-srce.png"
-                alt="Poklon buket sa Ferrero i Kinder čokoladama i medom"
-                width={1200}
-                height={1600}
+                src="/hero/products/pink-basket.png"
+                alt="Roze korpa sa plišanim medom i balonima u obliku srca"
+                width={911}
+                height={1123}
                 dieCut
-                priority
                 sizes="300px"
               />
             </span>
           </Parallax>
         </span>
 
-        {/* Zlatni balon — desno, na papiru */}
+        {/* Baby girl kofer — dole, centar */}
         <span
           data-hero
           className="pointer-events-none absolute z-30 block"
-          style={{ left: "69%", top: "40%", width: "13%" }}
-        >
-          <Parallax speed={-110} anchor="top">
-            <span className="block" style={{ transform: "rotate(10deg)" }}>
-              <PhotoBalloon color="zlatna" />
-            </span>
-          </Parallax>
-        </span>
-
-        {/* Zvezda balon sa medom — centar, na papiru */}
-        <span
-          data-hero
-          className="pointer-events-none absolute z-30 block"
-          style={{ left: "48%", top: "51%", width: "18%" }}
+          style={{ left: "39%", top: "61%", width: "18%" }}
         >
           <Parallax speed={65} anchor="top">
-            <span className="block" style={{ transform: "rotate(-8deg)" }}>
+            <span className="block" style={{ transform: "rotate(-4deg)" }}>
               <HeroSticker
-                src="/hero/zvezda-meda.png"
-                alt="Crveni balon u obliku zvezde sa plišanim medom"
-                width={648}
-                height={898}
+                src="/hero/products/baby-girl.png"
+                alt="Lila kofer Baby girl sa plišanim medom, ružama i balonima u obliku srca"
+                width={950}
+                height={681}
                 dieCut
-                sizes="280px"
+                sizes="420px"
               />
-            </span>
-          </Parallax>
-        </span>
-
-        {/* Crveni balon — preko devojke, dole levo */}
-        <span
-          data-hero
-          className="pointer-events-none absolute z-30 block"
-          style={{ left: "5%", bottom: "6%", width: "10%" }}
-        >
-          <Parallax speed={-80} anchor="top">
-            <span className="block" style={{ transform: "rotate(6deg)" }}>
-              <PhotoBalloon color="crvena" />
             </span>
           </Parallax>
         </span>

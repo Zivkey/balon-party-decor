@@ -77,31 +77,63 @@ export default function Contact() {
                 <div className="mt-6 w-full space-y-3">
                   <a
                     href={PHONE_HREF}
-                    className="flex items-center justify-between rounded-full bg-wine px-4 py-2.5 text-white transition hover:bg-wine-dark"
+                    className="group flex items-center gap-3 rounded-2xl bg-gradient-to-r from-wine to-wine-dark p-2 text-white shadow-[0_10px_24px_-10px_rgba(124,29,44,0.75)] ring-1 ring-white/10 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-10px_rgba(124,29,44,0.9)]"
                   >
-                    <span className="flex items-center gap-2 text-sm font-medium">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white/15 ring-1 ring-white/20">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path d="M4 5c0-.6.4-1 1-1h2.3c.5 0 .9.3 1 .8l.8 3c.1.4 0 .8-.3 1.1L8 10.3a12 12 0 0 0 5.7 5.7l1.4-1.6c.3-.3.7-.4 1.1-.3l3 .8c.5.1.8.5.8 1V18c0 .6-.4 1-1 1A15 15 0 0 1 4 5Z" />
                       </svg>
-                      Pozovi
                     </span>
-                    <span className="text-xs font-medium">{PHONE_LABEL}</span>
+                    <span className="flex flex-col text-left leading-tight">
+                      <span className="text-[0.68rem] font-semibold tracking-[0.08em] text-white/65 uppercase">
+                        Pozovi
+                      </span>
+                      <span className="text-[0.82rem] font-semibold">{PHONE_LABEL}</span>
+                    </span>
+                    <svg
+                      className="ml-auto size-4 shrink-0 text-white/45 transition-transform duration-200 group-hover:translate-x-0.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
                   </a>
                   <a
                     href={INSTAGRAM}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between rounded-full bg-wine px-4 py-2.5 text-white transition hover:bg-wine-dark"
+                    className="group flex items-center gap-3 rounded-2xl bg-gradient-to-r from-wine to-wine-dark p-2 text-white shadow-[0_10px_24px_-10px_rgba(124,29,44,0.75)] ring-1 ring-white/10 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-10px_rgba(124,29,44,0.9)]"
                   >
-                    <span className="flex items-center gap-2 text-sm font-medium">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
-                        <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
-                        <circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" />
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5] ring-1 ring-white/20">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" strokeWidth="2" />
+                        <circle cx="12" cy="12" r="4" stroke="#fff" strokeWidth="2" />
+                        <circle cx="17.5" cy="6.5" r="1.3" fill="#fff" />
                       </svg>
-                      Instagram
                     </span>
-                    <span className="text-xs font-medium">@balon_party_decor</span>
+                    <span className="flex flex-col text-left leading-tight">
+                      <span className="text-[0.68rem] font-semibold tracking-[0.08em] text-white/65 uppercase">
+                        Instagram
+                      </span>
+                      <span className="text-[0.82rem] font-semibold">@balon_party_decor</span>
+                    </span>
+                    <svg
+                      className="ml-auto size-4 shrink-0 text-white/45 transition-transform duration-200 group-hover:translate-x-0.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M9 6l6 6-6 6" />
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -126,9 +158,10 @@ export default function Contact() {
             </svg>
             {ADDRESS}
           </a>
-
-          <ContactMap alt={`Mapa — ${ADDRESS}`} />
         </Reveal>
+
+        {/* Mapa — uvek učitana, van scroll-reveal animacije */}
+        <ContactMap alt={`Mapa — ${ADDRESS}`} />
 
         <p className="mx-auto mt-12 max-w-xl text-center text-sm text-wine/60">
           © {new Date().getFullYear()} Balon Party Decor · Dostava na teritoriji

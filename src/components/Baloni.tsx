@@ -140,7 +140,7 @@ export default function Baloni() {
   }, []);
 
   return (
-    <section id="baloni" className="bg-white py-16 sm:py-20">
+    <section id="baloni" className="bg-white pt-4 pb-16 sm:pt-6 sm:pb-20">
       <Reveal className="mx-auto max-w-6xl px-6" stagger={0.12}>
         <h2 className="font-display text-3xl font-bold text-wine sm:text-4xl">
           Baloni
