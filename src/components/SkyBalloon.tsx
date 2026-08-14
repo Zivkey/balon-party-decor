@@ -18,6 +18,8 @@ type Props = {
   color: BalloonColor;
   className?: string;
   width?: number;
+  /** Širina na mobilnom (< sm); podrazumevano ista kao `width`. */
+  mobileWidth?: number;
   rotate?: number;
   /** Koliko px balon "odleti" naviše kroz opseg skrola (veće = brže). */
   speed?: number;
@@ -28,6 +30,7 @@ export default function SkyBalloon({
   color,
   className,
   width = 64,
+  mobileWidth,
   rotate = 0,
   speed = 130,
 }: Props) {
@@ -82,10 +85,12 @@ export default function SkyBalloon({
     <span
       ref={ref}
       aria-hidden="true"
-      className={`pointer-events-none absolute block ${className ?? ""}`}
+      className={`pointer-events-none absolute block w-[var(--bw)] sm:w-[var(--bw-sm)] ${className ?? ""}`}
       style={{
-        width,
-        height: width * 2.14,
+        // Širina preko CSS promenljivih → responsive bez duplirane logike.
+        ["--bw" as string]: `${mobileWidth ?? width}px`,
+        ["--bw-sm" as string]: `${width}px`,
+        aspectRatio: "1 / 2.14",
         transform: `translate3d(0, var(--ty, 0px), 0) rotate(${rotate}deg)`,
         backgroundImage: "url(/hero/baloni.png)",
         backgroundSize: "500% auto",

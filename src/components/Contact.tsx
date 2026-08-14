@@ -3,12 +3,15 @@ import SkyBalloon from "./SkyBalloon";
 import Parallax from "./Parallax";
 import ContactMap from "./ContactMap";
 import Reveal from "./Reveal";
+import { KONTAKT } from "@/data/kontakt";
 
-const PHONE_LABEL = "+381 61 6588353";
-const PHONE_HREF = "tel:+381616588353";
-const INSTAGRAM = "https://www.instagram.com/balon_party_decor/";
-const ADDRESS = "Vozdova 48, Niš";
-const MAPS_URL = "https://maps.app.goo.gl/U82bvJen3m3tV4c37";
+const {
+  phoneLabel: PHONE_LABEL,
+  phoneHref: PHONE_HREF,
+  instagram: INSTAGRAM,
+  address: ADDRESS,
+  mapsUrl: MAPS_URL,
+} = KONTAKT;
 
 function Ribbon() {
   return (
@@ -109,7 +112,7 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 rounded-2xl bg-gradient-to-r from-wine to-wine-dark p-2 text-white shadow-[0_10px_24px_-10px_rgba(124,29,44,0.75)] ring-1 ring-white/10 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-10px_rgba(124,29,44,0.9)]"
                   >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5] ring-1 ring-white/20">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white/15 ring-1 ring-white/20">
                       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <rect x="3" y="3" width="18" height="18" rx="5" stroke="#fff" strokeWidth="2" />
                         <circle cx="12" cy="12" r="4" stroke="#fff" strokeWidth="2" />
@@ -161,12 +164,7 @@ export default function Contact() {
         </Reveal>
 
         {/* Mapa — uvek učitana, van scroll-reveal animacije */}
-        <ContactMap alt={`Mapa — ${ADDRESS}`} />
-
-        <p className="mx-auto mt-12 max-w-xl text-center text-sm text-wine/60">
-          © {new Date().getFullYear()} Balon Party Decor · Dostava na teritoriji
-          Niša.
-        </p>
+        <ContactMap alt={`Mapa, ${ADDRESS}`} href={MAPS_URL} />
       </div>
     </section>
   );

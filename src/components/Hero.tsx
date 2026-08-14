@@ -47,11 +47,9 @@ export default function Hero() {
   return (
     <section
       ref={scope}
-      className="relative -mt-20 overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(to bottom, #f2c4cf 0%, #f2c4cf 54%, #ffffff 84%)",
-      }}
+      // Roze→belo prati poziciju pocepanog papira, koja se razlikuje po
+      // breakpointu (46% / 56% / 26%).
+      className="relative -mt-20 overflow-hidden bg-[linear-gradient(to_bottom,#f2c4cf_0%,#f2c4cf_42%,#ffffff_62%)] sm:bg-[linear-gradient(to_bottom,#f2c4cf_0%,#f2c4cf_52%,#ffffff_72%)] lg:bg-[linear-gradient(to_bottom,#f2c4cf_0%,#f2c4cf_54%,#ffffff_84%)]"
     >
       {/* Suptilna tekstura papira preko pink dela */}
       <div
@@ -63,23 +61,23 @@ export default function Hero() {
       {/* Vertikalne roze/bele pruge — samo preko roze dela, nestaju pre bele zone */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
+        // Maska prati pink→belo gradijent sekcije: pruge ostaju na celom roze
+        // delu i nestaju tek kad se roze pretapa u belo (ranije na mobilnom).
+        className="pointer-events-none absolute inset-0 z-0 [mask-image:linear-gradient(to_bottom,#000_42%,transparent_62%)] sm:[mask-image:linear-gradient(to_bottom,#000_52%,transparent_72%)] lg:[mask-image:linear-gradient(to_bottom,#000_54%,transparent_84%)]"
         style={{
           backgroundImage:
             "repeating-linear-gradient(90deg, rgba(255,255,255,0.5) 0, rgba(255,255,255,0.5) 22px, transparent 22px, transparent 44px)",
-          // Prati pink→belo gradijent sekcije: pruge ostaju na celom roze delu i
-          // nestaju tek kad se roze pretapa u belo.
-          maskImage: "linear-gradient(to bottom, #000 54%, transparent 84%)",
-          WebkitMaskImage: "linear-gradient(to bottom, #000 54%, transparent 84%)",
         }}
       />
 
-      <div className="relative mx-auto aspect-[10/11] w-full max-w-[1440px] sm:aspect-[7/5] lg:aspect-[1440/860]">
-        {/* DEVOJKA — iza papira (z-10), izranja iznad pocepane ivice */}
+      {/* Do lg-a je layout "složen" (tekst gore, dva velika stikera dole);
+          od lg-a je Figma platno 1440×860 sa raspoređenim elementima. */}
+      <div className="relative mx-auto aspect-[10/17] w-full max-w-[1440px] sm:aspect-[10/13] md:aspect-[10/11] lg:aspect-[1440/1000] xl:aspect-[1440/860]">
+        {/* DEVOJKA — ispod lg-a je levi stiker na papiru (z-30), od lg-a je iza
+            papira (z-10) i izranja iznad pocepane ivice, kao u Figmi. */}
         <span
           data-hero
-          className="pointer-events-none absolute z-10 block"
-          style={{ left: "-2%", top: "20%", width: "39%" }}
+          className="pointer-events-none absolute z-30 block left-[0%] top-[56%] w-[58%] sm:left-[2%] sm:top-[53%] sm:w-[45%] md:top-[52%] md:w-[38%] lg:left-[-2%] lg:top-[20%] lg:z-10 lg:w-[39%]"
         >
           <Parallax speed={-40} anchor="top">
             <Image
@@ -88,7 +86,7 @@ export default function Hero() {
               width={3275}
               height={4019}
               priority
-              sizes="(max-width: 768px) 55vw, 560px"
+              sizes="(max-width: 1024px) 45vw, 560px"
               className="h-auto w-full select-none"
             />
           </Parallax>
@@ -100,7 +98,7 @@ export default function Hero() {
           src="/hero/pocepan-papir.png"
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[26%] z-20 w-screen max-w-none select-none"
+          className="pointer-events-none absolute left-1/2 top-[46%] z-20 w-screen max-w-none select-none sm:top-[56%] md:top-[52%] lg:top-[26%]"
           style={{
             transform: "translateX(-50%) scaleX(-1)",
             maskImage:
@@ -123,7 +121,7 @@ export default function Hero() {
         {/* NASLOV — vrh, centrirano */}
         <div
           data-hero
-          className="pointer-events-none absolute inset-x-0 top-[13%] z-30 mx-auto flex max-w-[820px] flex-col items-center px-6 text-center"
+          className="pointer-events-none absolute inset-x-0 top-[19%] z-30 mx-auto flex max-w-[820px] flex-col items-center px-6 text-center sm:top-[16%] min-[1440px]:top-[13%]"
         >
           <h1 className="font-display text-[9vw] leading-[0.9] font-extrabold tracking-[-0.02em] text-[#801026] md:text-[56px] lg:text-[80px] lg:leading-[72px]">
             Tražite poklon —
@@ -145,19 +143,35 @@ export default function Hero() {
         {/* Lebdeći baloni iz "neba" — iza devojke i proizvoda, vide se samo u praznom roze prostoru */}
         <span data-hero className="pointer-events-none absolute inset-0 z-[6] block">
           {/* Levi ugao (oslobođen) */}
-          <SkyBalloon color="zlatna" width={112} rotate={-12} speed={70} className="left-[1%] top-[13%]" />
-          <SkyBalloon color="crvena" width={78} rotate={9} speed={116} className="left-[15%] top-[9%]" />
+          <SkyBalloon
+            color="zlatna"
+            width={112}
+            mobileWidth={58}
+            rotate={-12}
+            speed={70}
+            className="left-[-5%] top-[21%] sm:left-[0%] sm:top-[17%] lg:left-[1%] lg:top-[13%]"
+          />
           {/* Desni ugao (oslobođen) */}
-          <SkyBalloon color="plava" width={118} rotate={12} speed={74} className="left-[86%] top-[9%]" />
-          <SkyBalloon color="srebrna" width={80} rotate={-8} speed={132} className="left-[74%] top-[12%]" />
-          <SkyBalloon color="tirkiz" width={68} rotate={-6} speed={120} className="left-[91%] top-[33%]" />
+          <SkyBalloon
+            color="plava"
+            width={118}
+            mobileWidth={62}
+            rotate={12}
+            speed={74}
+            className="left-[87%] top-[19%] sm:left-[81%] sm:top-[15%] lg:left-[86%] lg:top-[9%]"
+          />
+          {/* Sitniji baloni — samo od lg naviše, na užim ekranima prave gužvu */}
+          <span className="hidden lg:block">
+            <SkyBalloon color="crvena" width={78} rotate={9} speed={116} className="left-[15%] top-[9%]" />
+            <SkyBalloon color="srebrna" width={80} rotate={-8} speed={132} className="left-[74%] top-[12%]" />
+            <SkyBalloon color="tirkiz" width={68} rotate={-6} speed={120} className="left-[91%] top-[33%]" />
+          </span>
         </span>
 
-        {/* Crveni buket sa srcima i Ferrero — gore desno */}
+        {/* Crveni buket sa srcima i Ferrero — ispod lg-a veliki, dole desno */}
         <span
           data-hero
-          className="pointer-events-none absolute z-30 block"
-          style={{ left: "79%", top: "43%", width: "17%" }}
+          className="pointer-events-none absolute z-30 block left-[58%] top-[64%] w-[38%] sm:left-[59%] sm:top-[62%] sm:w-[32%] md:top-[60%] md:w-[27%] lg:left-[79%] lg:top-[43%] lg:w-[17%]"
         >
           <Parallax speed={55} anchor="top">
             <span className="block" style={{ transform: "rotate(5deg)" }}>
@@ -174,11 +188,10 @@ export default function Hero() {
           </Parallax>
         </span>
 
-        {/* Roze korpa sa medom — desno, na papiru */}
+        {/* Roze korpa sa medom — desno, na papiru. Na mobilnom izbačena (gužva). */}
         <span
           data-hero
-          className="pointer-events-none absolute z-30 block"
-          style={{ left: "60%", top: "59%", width: "14%" }}
+          className="pointer-events-none absolute z-30 hidden left-[60%] top-[59%] w-[14%] lg:block"
         >
           <Parallax speed={-110} anchor="top">
             <span className="block" style={{ transform: "rotate(8deg)" }}>
@@ -194,11 +207,10 @@ export default function Hero() {
           </Parallax>
         </span>
 
-        {/* Baby girl kofer — dole, centar */}
+        {/* Baby girl kofer — dole, centar. Ispod lg-a ga nema (mesto zauzima devojka). */}
         <span
           data-hero
-          className="pointer-events-none absolute z-30 block"
-          style={{ left: "39%", top: "61%", width: "18%" }}
+          className="pointer-events-none absolute z-30 hidden left-[39%] top-[61%] w-[18%] lg:block"
         >
           <Parallax speed={65} anchor="top">
             <span className="block" style={{ transform: "rotate(-4deg)" }}>

@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Claude Code local tooling
 /.claude/
+
+# full-size foto/video originali (ne idu u git ni na sajt)
+/originals

@@ -26,6 +26,7 @@
 @theme {
   --font-display: "Alan Sans";
   --font-sans: var(--font-inter);
+  --font-hand: var(--font-caveat);
 
   /* Brend boje — Balon Party Decor (Figma #801026) */
   --color-wine: #801026;
@@ -66,23 +67,76 @@ h3,
   }
 }
 
-/* Talasasta (scallop) ivica — samo OBLIK (mask). Senka ide na wrapper element,
-   jer se `filter` primenjuje PRE `mask`-a pa bi maska isekla i senku. */
+/* Talasasta (scallop) ivica — samo OBLIK (mask). Senka ide na wrapper element
+   (.scallop-top / .scallop-bottom), jer se `filter` primenjuje PRE `mask`-a pa
+   bi maska isekla i senku.
+
+   Dve stvari drže spoj sa sekcijom čistim:
+   1) Pločica je široka koliko i prečnik kruga (44px), pa su krugovi tangentni.
+      Sa širom pločicom (48px) između krugova ostaje prozirni zarez tačno na
+      liniji spoja, kroz koji se probija pozadina — to je bila oštra linija.
+   2) Traka se 1px uvlači u sekciju, pa nema hairline linije kada element
+      padne na frakcioni piksel.
+
+   Poluprečnik mora biti TAČNO pola pločice (22px = pola od 44px, i koliko je
+   visoka traka). Veći poluprečnik (npr. 22.4px) gura teme kruga iznad trake,
+   pa ga ivica trake odseče i kupola dobije ravan vrh. Dodir dva susedna kruga
+   je na dnu, tamo gde je ionako podloga roze zbog 1px preklopa, pa mekan
+   piksel na tom mestu ne smeta. */
+/* Senka se seče na liniji spoja (overflow: hidden na .scallop).
+   Bez toga se vidi tamna traka preko sekcije: gornja ivica trake je RAVNA i
+   neprozirna, pa drop-shadow baca senku i sa nje — sa pomakom 3px i blurom 5px
+   ona "procuri" ~2px NAZAD preko ivice, na roze pozadinu. Kutija je viša od
+   oblika (34px prema 22px) da senci ostane mesta sa spoljne strane. */
+.scallop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 34px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.scallop-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.scallop-top {
+  top: 0;
+  transform: translateY(calc(-100% + 1px));
+}
+/* Kupole koje gledaju NAGORE nemaju senku: svetlo pada odozgo, pa senka iznad
+   ispupčenja izgleda naopako — a siva izmaglica tik iznad temena na beloj
+   pozadini vizuelno "skraćuje" kupolu (iako je geometrijski ista, 22px).
+   Senka ostaje samo na kupolama koje gledaju NADOLE, gde i pada prirodno. */
+.scallop-top .scallop-shadow {
+  bottom: 0;
+}
+.scallop-bottom {
+  bottom: 0;
+  transform: translateY(calc(100% - 1px));
+}
+.scallop-bottom .scallop-shadow {
+  top: 0;
+  filter: drop-shadow(0 3px 4px rgba(124, 29, 44, 0.28));
+}
+
 .scallop-shape {
   height: 22px;
   background-color: var(--color-pink-mid);
   -webkit-mask-repeat: repeat-x;
   mask-repeat: repeat-x;
-  -webkit-mask-size: 48px 44px;
-  mask-size: 48px 44px;
+  -webkit-mask-size: 44px 44px;
+  mask-size: 44px 44px;
 }
 /* Krugovi izbijaju nagore (iznad sekcije) */
 .scallop-shape-top {
-  -webkit-mask-image: radial-gradient(circle at 24px 22px, #000 22px, transparent 23px);
-  mask-image: radial-gradient(circle at 24px 22px, #000 22px, transparent 23px);
+  -webkit-mask-image: radial-gradient(circle at 22px 22px, #000 22px, transparent 22.8px);
+  mask-image: radial-gradient(circle at 22px 22px, #000 22px, transparent 22.8px);
 }
 /* Krugovi izbijaju nadole (ispod sekcije) */
 .scallop-shape-bottom {
-  -webkit-mask-image: radial-gradient(circle at 24px 0px, #000 22px, transparent 23px);
-  mask-image: radial-gradient(circle at 24px 0px, #000 22px, transparent 23px);
+  -webkit-mask-image: radial-gradient(circle at 22px 0px, #000 22px, transparent 22.8px);
+  mask-image: radial-gradient(circle at 22px 0px, #000 22px, transparent 22.8px);
 }

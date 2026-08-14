@@ -40,7 +40,7 @@ export default function SiteHeader() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full bg-white px-4 py-3 shadow-[0_10px_30px_-12px_rgba(124,29,44,0.35)] sm:px-6">
         {/* Logo — levo */}
-        <span className="text-lg font-bold uppercase tracking-wide text-wine sm:text-xl">
+        <span className="text-base font-bold whitespace-nowrap uppercase tracking-wide text-wine sm:text-xl">
           Balon Party Decor
         </span>
 

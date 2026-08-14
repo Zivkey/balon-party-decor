@@ -4,18 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
+import { BALONI_SLIDER } from "@/data/baloni";
 
 const TABS = ["Tip broj jedan", "Drugi tip", "Treći tip mašinskih balona"];
 
-// Prave fotografije proizvoda (u public/baloni/).
-const PRODUCTS = [
-  { src: "/baloni/1.jpg", alt: "Plišani meda u roze poklon torbici sa balonima u obliku srca" },
-  { src: "/baloni/2.jpg", alt: "Baby boy korpa sa plišanim medom, Kinder Bueno čokoladama i balonom" },
-  { src: "/baloni/3.jpg", alt: "Buket sa crvenim srce-balonom, ružama, Raffaello i medom sa diplomom" },
-];
-
-// Ponovljeni da bude dovoljno kartica za neprekidan (seamless) marquee.
-const CARDS = [...PRODUCTS, ...PRODUCTS];
+// Kartice slidera — 8 fotografija je dovoljno široko za neprekidan (seamless)
+// marquee, pa se sekvenca ne mora dodatno duplirati.
+const CARDS = BALONI_SLIDER;
 
 const AUTO_SPEED = 0.05; // px po ms — stalno klizanje ulevo
 
@@ -146,7 +141,7 @@ export default function Baloni() {
           Baloni
         </h2>
         <p className="mt-2 max-w-xl text-muted">
-          Personalizovani buketi od balona sa imenom, mašnicama i slatkišima — po
+          Personalizovani buketi od balona sa imenom, mašnicama i slatkišima, po
           vašoj želji.
         </p>
 
@@ -191,9 +186,9 @@ export default function Baloni() {
               className="flex shrink-0 gap-6 pr-6"
               aria-hidden={dup === 1}
             >
-              {CARDS.map((p, n) => (
+              {CARDS.map((p) => (
                 <div
-                  key={`${dup}-${n}`}
+                  key={`${dup}-${p.id}`}
                   className="relative h-[420px] w-[300px] shrink-0 overflow-hidden rounded-3xl bg-gradient-to-b from-pink-soft to-pink-mid sm:h-[440px] sm:w-[320px]"
                 >
                   <Image
