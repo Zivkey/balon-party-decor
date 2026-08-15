@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import { BALONI_SLIDER } from "@/data/baloni";
-
-const TABS = ["Tip broj jedan", "Drugi tip", "Treći tip mašinskih balona"];
 
 // Kartice slidera — 8 fotografija je dovoljno široko za neprekidan (seamless)
 // marquee, pa se sekvenca ne mora dodatno duplirati.
@@ -15,7 +13,6 @@ const CARDS = BALONI_SLIDER;
 const AUTO_SPEED = 0.05; // px po ms — stalno klizanje ulevo
 
 export default function Baloni() {
-  const [active, setActive] = useState(0);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const seqRef = useRef<HTMLDivElement>(null);
@@ -138,28 +135,18 @@ export default function Baloni() {
     <section id="baloni" className="bg-white pt-4 pb-16 sm:pt-6 sm:pb-20">
       <Reveal className="mx-auto max-w-6xl px-6" stagger={0.12}>
         <h2 className="font-display text-3xl font-bold text-wine sm:text-4xl">
-          Baloni
+          Baloni i pokloni u Nišu
         </h2>
-        <p className="mt-2 max-w-xl text-muted">
-          Personalizovani buketi od balona sa imenom, mašnicama i slatkišima, po
-          vašoj želji.
+        <p className="mt-3 text-muted">
+          U radnji Balon Party Decor naći ćete balone za svaku priliku, ukrasne
+          poklon kutije i bukete od balona. Buket sastavljamo po vašoj želji, sa
+          imenom, mašnicama i slatkišima koje voli osoba kojoj ga poklanjate.
         </p>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          {TABS.map((tab, i) => (
-            <button
-              key={tab}
-              onClick={() => setActive(i)}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                active === i
-                  ? "bg-wine text-white"
-                  : "bg-white text-wine ring-1 ring-wine/25 hover:ring-wine/50"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <p className="mt-3 text-muted">
+          Kod nas birate poklon za rođendan, godišnjicu, krštenje, Dan
+          zaljubljenih ili bilo koji drugi povod kada želite da obradujete
+          voljenu osobu. Dostavljamo na teritoriji Niša.
+        </p>
       </Reveal>
 
       {/* Beskonačni slider — auto-scroll + prevlačenje */}
