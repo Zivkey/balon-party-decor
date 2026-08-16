@@ -21,10 +21,13 @@ const SLOTS = [
   { left: "67%", top: "48%", rot: 1, z: "z-[4]", zoom: "translate(-101.5%, -46.1%)" },
 ];
 
-// Uvećanje aktivne kartice na mobilnom. 2.2 je namerno ispod "pune širine":
-// veći faktor bi karticu izvukao iz kontejnera toliko da naleti na naslov iznad
-// i dugme ispod, jer je kontejner (10/7) niži nego što uvećana kartica traži.
-const ZOOM = 2.2;
+// Uvećanje aktivne kartice na mobilnom (≈86% širine kontejnera).
+// Gornja granica nije širina nego VISINA: kartica je uspravna, a kontejner
+// (10/7) položen, pa uvećana viri gore i dole. Na 375px ekranu kontejner je
+// 327×229, kartica u miru 108×118 → na 2.6× ispadne 281×307, dakle viri po
+// 39px. Zato ispod kolaža mora ostati bar toliko do dugmeta (ima mt-12 = 48px),
+// a iznad do strelice (zato KlikniMe ima veći donji razmak).
+const ZOOM = 2.6;
 
 // Trajanje zuma, na jednom mestu umesto kao Tailwind klasa.
 const ZOOM_MS = 500;
@@ -32,7 +35,7 @@ const ZOOM_MS = 500;
 /** Rukom crtana strelica ka kolažu (samo mobilni). */
 function KlikniMe() {
   return (
-    <div className="pointer-events-none mb-2 flex items-start gap-2 pl-2 sm:hidden">
+    <div className="pointer-events-none mb-14 flex items-start gap-2 pl-2 sm:hidden">
       <span className="font-hand -mt-1 -rotate-6 text-2xl leading-none text-wine/85">
         Klikni me
       </span>
