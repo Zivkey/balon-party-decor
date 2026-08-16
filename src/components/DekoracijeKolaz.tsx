@@ -4,38 +4,49 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { DEKORACIJE_KOLAZ } from "@/data/dekoracije";
 
-// Ručno raspoređen kolaž polaroida — 3 u redu, dva reda, blago nakrivljeni.
-// Pozicije u % kontejnera → skalira se proporcionalno na svim ekranima.
+// Ručno raspoređen kolaž polaroida, blago nakrivljenih.
+// Na telefonu 2 u redu (3 reda), od sm naviše 3 u redu (2 reda). Raspored ide
+// kroz Tailwind klase, a ne kroz JS, da se pri učitavanju ne vidi preskakanje
+// iz jednog rasporeda u drugi. Klase moraju biti ispisane cele jer ih Tailwind
+// traži kao doslovan tekst u fajlu.
 //
 // zoom = transform kojim se BAŠ TA kartica dovodi u centar kontejnera i uveća.
-// Računato iz rasporeda: kartica je široka 33% kontejnera, a visoka 51.67%
-// njegove visine (33% × 468/427 podeljeno sa 0.7, jer je kontejner 10/7).
-// Pomeraj je u % SOPSTVENE veličine kartice, pa ide pre scale() u transform-u
-// (funkcije se primenjuju s desna na levo) da ga uvećanje ne bi umnožilo.
+// Vrednosti važe za MOBILNI raspored, jer se zumira samo tamo. Kartica je tu
+// široka 49% kontejnera, a visoka 35.7% njegove visine (49% × 468/427 podeljeno
+// sa 1.5, jer je kontejner 2/3). Pomeraj je u % SOPSTVENE veličine kartice, pa
+// ide pre scale() u transform-u (funkcije se primenjuju s desna na levo) da ga
+// uvećanje ne bi umnožilo.
 const SLOTS = [
-  { left: "0%", top: "0%", rot: -1.5, z: "z-[2]", zoom: "translate(101.5%, 46.8%)" },
-  { left: "33.5%", top: "0%", rot: 1.2, z: "z-[4]", zoom: "translate(0%, 46.8%)" },
-  { left: "67%", top: "0%", rot: -1, z: "z-[3]", zoom: "translate(-101.5%, 46.8%)" },
-  { left: "0%", top: "48%", rot: 1.2, z: "z-[5]", zoom: "translate(101.5%, -46.1%)" },
-  { left: "33.5%", top: "48%", rot: -1.4, z: "z-[6]", zoom: "translate(0%, -46.1%)" },
-  { left: "67%", top: "48%", rot: 1, z: "z-[4]", zoom: "translate(-101.5%, -46.1%)" },
+  { pos: "left-[0%] top-[0%] sm:left-[0%] sm:top-[0%]", rot: -1.5, z: "z-[2]", zoom: "translate(52%, 90.1%)" },
+  { pos: "left-[51%] top-[0%] sm:left-[33.5%] sm:top-[0%]", rot: 1.2, z: "z-[4]", zoom: "translate(-52%, 90.1%)" },
+  { pos: "left-[0%] top-[32%] sm:left-[67%] sm:top-[0%]", rot: -1, z: "z-[3]", zoom: "translate(52%, 0.4%)" },
+  { pos: "left-[51%] top-[32%] sm:left-[0%] sm:top-[48%]", rot: 1.2, z: "z-[5]", zoom: "translate(-52%, 0.4%)" },
+  { pos: "left-[0%] top-[64%] sm:left-[33.5%] sm:top-[48%]", rot: -1.4, z: "z-[6]", zoom: "translate(52%, -89.2%)" },
+  { pos: "left-[51%] top-[64%] sm:left-[67%] sm:top-[48%]", rot: 1, z: "z-[4]", zoom: "translate(-52%, -89.2%)" },
 ];
 
-// Uvećanje aktivne kartice na mobilnom (≈86% širine kontejnera).
-// Gornja granica nije širina nego VISINA: kartica je uspravna, a kontejner
-// (10/7) položen, pa uvećana viri gore i dole. Na 375px ekranu kontejner je
-// 327×229, kartica u miru 108×118 → na 2.6× ispadne 281×307, dakle viri po
-// 39px. Zato ispod kolaža mora ostati bar toliko do dugmeta (ima mt-12 = 48px),
-// a iznad do strelice (zato KlikniMe ima veći donji razmak).
-const ZOOM = 2.6;
+// Uvećanje aktivne kartice na mobilnom (≈88% širine kontejnera).
+// Uz 2 u redu kartica je i u miru krupna (49% širine), pa je dovoljno 1.8×.
+// Na 375px ekranu kontejner je 327×490, kartica u miru 160×175 → zumirana
+// 288×315, što staje unutar kontejnera i po visini, tako da ne naleće ni na
+// strelicu iznad ni na dugme ispod.
+const ZOOM = 1.8;
 
 // Trajanje zuma, na jednom mestu umesto kao Tailwind klasa.
 const ZOOM_MS = 500;
 
+// Otvaranje: kreće mekano, ubrza i na kraju malo prebaci pa se slegne (y > 1 u
+// drugoj kontrolnoj tački). Prebačaj ide do ~1.88× umesto 1.8×, pa kartica i u
+// tom trenutku staje u kontejner.
+const EASE_OPEN = "cubic-bezier(0.34, 1.5, 0.64, 1)";
+// Zatvaranje: bez prebačaja, jer bi kartica prvo "propala" ispod svoje mirne
+// veličine pa se vraćala. Klasičan ease-in-out, mekan na oba kraja.
+const EASE_CLOSE = "cubic-bezier(0.65, 0, 0.35, 1)";
+
 /** Rukom crtana strelica ka kolažu (samo mobilni). */
 function KlikniMe() {
   return (
-    <div className="pointer-events-none mb-14 flex items-start gap-2 pl-2 sm:hidden">
+    <div className="pointer-events-none mb-3 flex items-start gap-2 pl-2 sm:hidden">
       <span className="font-hand -mt-1 -rotate-6 text-2xl leading-none text-wine/85">
         Klikni me
       </span>
@@ -99,7 +110,7 @@ export default function DekoracijeKolaz() {
     <div>
       <KlikniMe />
 
-      <div className="@container relative mx-auto aspect-[10/7] w-full">
+      <div className="@container relative mx-auto aspect-[2/3] w-full sm:aspect-[10/7]">
         {SLOTS.map((slot, i) => {
           const d = DEKORACIJE_KOLAZ[i];
           if (!d) return null;
@@ -107,11 +118,10 @@ export default function DekoracijeKolaz() {
           return (
             <div
               key={d.id}
-              className={`absolute w-[33%] transition-transform ease-out ${slot.z}`}
+              className={`absolute w-[49%] transition-transform sm:w-[33%] ${slot.pos} ${slot.z}`}
               style={{
-                left: slot.left,
-                top: slot.top,
                 transitionDuration: `${ZOOM_MS}ms`,
+                transitionTimingFunction: isActive ? EASE_OPEN : EASE_CLOSE,
                 // Aktivna se ispravlja (bez rotacije), dolazi u centar i uvećava.
                 transform: isActive
                   ? `${slot.zoom} scale(${ZOOM})`
