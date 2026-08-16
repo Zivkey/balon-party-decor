@@ -104,7 +104,15 @@ export default function Baloni() {
       document.removeEventListener("pointerup", onUp);
       document.removeEventListener("pointercancel", onUp);
     };
+    // Na telefonu se slider NE prevlači, samo se sam vrti — prevlačenje prstom
+    // se stalno mešalo sa skrolovanjem stranice i delovalo je razdrmano.
+    // Provera ide ovde, u trenutku dodira, a ne kroz kačenje/skidanje slušaoca
+    // na promenu širine: tako nema stanja koje može da se raziđe sa stvarnom
+    // širinom ekrana.
+    const noDrag = window.matchMedia("(max-width: 639px)");
+
     const onDown = (e: PointerEvent) => {
+      if (noDrag.matches) return;
       if (e.pointerType === "mouse" && e.button !== 0) return;
       draggedRef.current = false;
       s.dragging = true;
@@ -149,7 +157,7 @@ export default function Baloni() {
         </p>
       </Reveal>
 
-      {/* Beskonačni slider — auto-scroll + prevlačenje */}
+      {/* Beskonačni slider — sam se vrti; prevlačenje samo na širem ekranu */}
       <div
         ref={viewportRef}
         onClickCapture={(e) => {
@@ -159,7 +167,7 @@ export default function Baloni() {
             draggedRef.current = false;
           }
         }}
-        className="mt-8 cursor-grab touch-pan-y overflow-hidden py-3 active:cursor-grabbing"
+        className="mt-8 overflow-hidden py-3 sm:cursor-grab sm:touch-pan-y sm:active:cursor-grabbing"
       >
         <div
           ref={trackRef}
