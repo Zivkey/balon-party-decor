@@ -1,19 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
-import { DEKORACIJE_KOLAZ } from "@/data/dekoracije";
-
-// Ručno raspoređen kolaž polaroida — 3 u redu, dva reda, blago nakrivljeni.
-// Pozicije u % kontejnera → skalira se proporcionalno na svim ekranima.
-// Redosled odgovara redosledu u DEKORACIJE_KOLAZ.
-const SLOTS = [
-  { left: "0%", top: "0%", rot: -1.5, z: "z-[2]" },
-  { left: "33.5%", top: "0%", rot: 1.2, z: "z-[4]" },
-  { left: "67%", top: "0%", rot: -1, z: "z-[3]" },
-  { left: "0%", top: "48%", rot: 1.2, z: "z-[5]" },
-  { left: "33.5%", top: "48%", rot: -1.4, z: "z-[6]" },
-  { left: "67%", top: "48%", rot: 1, z: "z-[4]" },
-];
+import DekoracijeKolaz from "./DekoracijeKolaz";
 
 export default function Dekoracije() {
   return (
@@ -50,51 +37,8 @@ export default function Dekoracije() {
 
       {/* Kolaž je širi od teksta — polaroidi tako dobijaju više prostora. */}
       <div className="mx-auto max-w-[84rem] px-6">
-        <Reveal className="@container relative mx-auto mt-10 aspect-[10/7] w-full">
-          {SLOTS.map((slot, i) => {
-            const d = DEKORACIJE_KOLAZ[i];
-            if (!d) return null;
-            return (
-              <div
-                key={d.id}
-                className={`absolute w-[33%] ${slot.z}`}
-                style={{
-                  left: slot.left,
-                  top: slot.top,
-                  transform: `rotate(${slot.rot}deg)`,
-                }}
-              >
-                {/* Tanji beli okvir (4.5% sa strane i gore) → slika je krupnija,
-                    a ispod ostaje pojas za rukom pisan potpis.
-                    Senka u tri sloja: hairline ivica + kontaktna + meka ambijentalna —
-                    da se preklopljeni polaroidi jasno razdvoje jedan od drugog. */}
-                <div className="relative aspect-[427/468] rounded-[3px] bg-white shadow-[0_0_0_1px_rgba(124,29,44,0.16),0_2px_5px_rgba(124,29,44,0.22),0_20px_36px_-14px_rgba(124,29,44,0.6)] transition-transform duration-300 hover:z-20 hover:scale-[1.03]">
-                  <div
-                    className="absolute overflow-hidden rounded-[2px] bg-neutral-200/60 shadow-[inset_0_0_0_1px_rgba(44,34,36,0.12)]"
-                    style={{ left: "4.5%", right: "4.5%", top: "4.5%", height: "68%" }}
-                  >
-                    <Image
-                      src={d.src}
-                      alt={d.alt}
-                      fill
-                      sizes="(max-width: 640px) 45vw, 440px"
-                      className="object-cover"
-                    />
-                  </div>
-
-                  {/* Rukom pisan potpis u belom pojasu ispod slike. */}
-                  <div
-                    className="absolute flex items-center justify-center"
-                    style={{ left: "4.5%", right: "4.5%", top: "72.5%", bottom: "2.5%" }}
-                  >
-                    <span className="font-hand text-center leading-tight text-[clamp(0.8rem,2cqw,1.4rem)] text-ink/85">
-                      {d.caption}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <Reveal className="mt-10">
+          <DekoracijeKolaz />
         </Reveal>
       </div>
 
