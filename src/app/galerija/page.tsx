@@ -5,16 +5,46 @@ import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
 import { BALONI } from "@/data/baloni";
 import { DEKORACIJE } from "@/data/dekoracije";
+import { SITE, OG_IMAGE, abs } from "@/data/site";
+
+const NASLOV = "Galerija radova — baloni i dekoracije";
+const OPIS =
+  "Fotografije naših buketa od balona, poklon kutija i dekoracija za rođendane, baby shower, gender reveal i krštenja. Balon Party Decor, Niš.";
 
 export const metadata: Metadata = {
-  title: "Galerija — Balon Party Decor",
-  description:
-    "Galerija buketa od balona, poklon kutija i balonskih dekoracija za rođendane, baby shower i gender reveal proslave. Balon Party Decor, Niš.",
+  // Brend se dodaje automatski iz template-a u layout.tsx.
+  title: NASLOV,
+  description: OPIS,
+  alternates: { canonical: "/galerija" },
+  openGraph: {
+    type: "website",
+    title: `${NASLOV} | ${SITE.name}`,
+    description: OPIS,
+    url: abs("/galerija"),
+    siteName: SITE.name,
+    locale: SITE.locale,
+    images: [OG_IMAGE],
+  },
+};
+
+// Breadcrumb da Google u rezultatu ispiše „balonpartydecor.rs › Galerija“
+// umesto golog URL-a.
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Početna", item: abs("/") },
+    { "@type": "ListItem", position: 2, name: "Galerija", item: abs("/galerija") },
+  ],
 };
 
 export default function GalerijaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
       <main className="min-h-screen bg-white">
         <div className="mx-auto max-w-6xl px-6 py-8 sm:py-10">
           {/* Nazad na početnu */}

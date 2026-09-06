@@ -1,6 +1,13 @@
-// Google Maps embed centriran na radnju (Balon party decor, Niš).
+import { SITE, KONTAKT } from "@/data/site";
+
+// Google Maps embed. Namerno se traži po NAZIVU I ADRESI, a ne po koordinatama:
+// upit sa koordinatama prikaže bezimenu crvenu kapljicu, dok ovakav upit pogodi
+// Google Business Profile i prikaže karticu sa nazivom radnje i ocenom.
+// Gradi se iz istih podataka kao schema, da adresa ne može da se raziđe.
 const MAPS_EMBED =
-  "https://maps.google.com/maps?q=43.3199802,21.9053382&z=16&hl=sr&output=embed";
+  "https://maps.google.com/maps?q=" +
+  encodeURIComponent(`${SITE.name}, ${KONTAKT.address}`) +
+  "&z=16&hl=sr&output=embed";
 
 /**
  * Živa Google mapa — uvek učitana, i cela je jedan link.

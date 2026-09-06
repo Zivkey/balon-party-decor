@@ -4,6 +4,6 @@ export const KONTAKT = {
   phoneHref: "tel:+381616588353",
   instagram: "https://www.instagram.com/balon_party_decor/",
   instagramHandle: "@balon_party_decor",
-  address: "Vozdova 48, Niš",
+  address: "Vožda Karađorđa 106a, Niš",
   mapsUrl: "https://maps.app.goo.gl/U82bvJen3m3tV4c37",
 } as const;
