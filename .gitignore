@@ -45,3 +45,7 @@ next-env.d.ts
 
 # full-size foto/video originali (ne idu u git ni na sajt)
 /originals
+
+# Font keširan od scripts/generate-og.py (skida se sa Google Fonts)
+/.cache
+/.venv
