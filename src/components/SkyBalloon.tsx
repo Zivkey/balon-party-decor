@@ -5,7 +5,7 @@ import { DIE_CUT } from "./dieCut";
 
 type BalloonColor = "srebrna" | "zlatna" | "crvena" | "plava" | "tirkiz";
 
-// Redosled balona u slici public/hero/baloni.png (5 komada, sleva nadesno).
+// Redosled balona u slici public/hero/baloni.webp (5 komada, sleva nadesno).
 const POSITION: Record<BalloonColor, string> = {
   srebrna: "0%",
   zlatna: "25%",
@@ -92,7 +92,7 @@ export default function SkyBalloon({
         ["--bw-sm" as string]: `${width}px`,
         aspectRatio: "1 / 2.14",
         transform: `translate3d(0, var(--ty, 0px), 0) rotate(${rotate}deg)`,
-        backgroundImage: "url(/hero/baloni.png)",
+        backgroundImage: "url(/hero/baloni.webp)",
         backgroundSize: "500% auto",
         backgroundPositionX: POSITION[color],
         backgroundPositionY: "top",

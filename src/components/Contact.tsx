@@ -34,7 +34,7 @@ export default function Contact() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[880px] bg-cover bg-top"
         style={{
-          backgroundImage: "url(/hero/nebo.png)",
+          backgroundImage: "url(/hero/nebo.webp)",
           maskImage: "linear-gradient(to bottom, #000 58%, transparent)",
           WebkitMaskImage: "linear-gradient(to bottom, #000 58%, transparent)",
         }}
@@ -73,9 +73,9 @@ export default function Contact() {
                 <span className="text-[0.7rem] font-semibold tracking-[0.18em] text-wine uppercase">
                   Balon Party Decor
                 </span>
-                <h3 className="mt-4 text-center font-display text-[2rem] leading-[1.02] font-bold text-wine">
+                <h2 className="mt-4 text-center font-display text-[2rem] leading-[1.02] font-bold text-wine">
                   Stupi u kontakt sa nama
-                </h3>
+                </h2>
 
                 <div className="mt-6 w-full space-y-3">
                   <a

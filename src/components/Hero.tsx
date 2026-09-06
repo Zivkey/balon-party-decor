@@ -55,7 +55,7 @@ export default function Hero() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.08] mix-blend-multiply"
-        style={{ backgroundImage: "url(/hero/papir-tekstura.png)", backgroundSize: "cover" }}
+        style={{ backgroundImage: "url(/hero/papir-tekstura.webp)", backgroundSize: "cover" }}
       />
 
       {/* Vertikalne roze/bele pruge — samo preko roze dela, nestaju pre bele zone */}
@@ -95,7 +95,7 @@ export default function Hero() {
         {/* POCEPANI PAPIR — puna širina ekrana, horizontalno preslikan kao u
             Figmi (pocepana ivica niža levo, viša desno). */}
         <img
-          src="/hero/pocepan-papir.png"
+          src="/hero/pocepan-papir.webp"
           alt=""
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-[46%] z-20 w-screen max-w-none select-none sm:top-[56%] md:top-[52%] lg:top-[26%]"
