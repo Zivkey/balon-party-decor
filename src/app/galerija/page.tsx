@@ -7,7 +7,7 @@ import { BALONI } from "@/data/baloni";
 import { DEKORACIJE } from "@/data/dekoracije";
 import { SITE, OG_IMAGE, abs } from "@/data/site";
 
-const NASLOV = "Galerija radova — baloni i dekoracije";
+const NASLOV = "Galerija radova - baloni i dekoracije";
 const OPIS =
   "Fotografije naših buketa od balona, poklon kutija i dekoracija za rođendane, baby shower, gender reveal i krštenja. Balon Party Decor, Niš.";
 

@@ -16,7 +16,7 @@ export const SITE = {
 
   /** Sivi opis ispod linka. Google seče oko 155 karaktera — drži ispod. */
   description:
-    "Ručno pravljeni buketi od balona, poklon kutije i dekoracije za rođendane, baby shower i krštenja. Radnja u Nišu — dostava po celom gradu.",
+    "Ručno pravljeni buketi od balona, poklon kutije i dekoracije za rođendane, baby shower i krštenja. Radnja u Nišu - dostava po celom gradu.",
 
   /** sr_RS govori Fejsbuku/Vajberu da je sadržaj na srpskom. */
   locale: "sr_RS",
@@ -72,7 +72,7 @@ export const OG_IMAGE = {
   url: "/opengraph-image.jpg",
   width: 1200,
   height: 630,
-  alt: "Buketi od balona, poklon kutije i balonske dekoracije — Balon Party Decor, Niš",
+  alt: "Buketi od balona, poklon kutije i balonske dekoracije - Balon Party Decor, Niš",
 } as const;
 
 /** Apsolutni URL iz putanje — npr. abs("/galerija"). */

@@ -175,7 +175,7 @@ balloon("plava", 1104, 6, 78, 12)
 title_f = load_font(70, 800)
 sub_f = load_font(22, 500)
 draw_tracked(d, (W / 2, 44), "Balon Party Decor", title_f, WINE + (255,), tracking=-1.4)
-sub = "Buketi od balona, poklon kutije i dekoracije — Niš"
+sub = "Buketi od balona, poklon kutije i dekoracije - Niš"
 d.text((W / 2, 134), sub, font=sub_f, fill=WINE + (205,), anchor="ma")
 
 # 6. Pocepan papir — razvučen po širini da nagib bude blaži nego na hero-u,

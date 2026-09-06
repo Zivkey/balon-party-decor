@@ -124,7 +124,7 @@ export default function Hero() {
           className="pointer-events-none absolute inset-x-0 top-[19%] z-30 mx-auto flex max-w-[820px] flex-col items-center px-6 text-center sm:top-[16%] min-[1440px]:top-[13%]"
         >
           <h1 className="font-display text-[9vw] leading-[0.9] font-extrabold tracking-[-0.02em] text-[#801026] md:text-[56px] lg:text-[80px] lg:leading-[72px]">
-            Tražite poklon —
+            Tražite poklon -
             <br />
             na pravom ste mestu
           </h1>
